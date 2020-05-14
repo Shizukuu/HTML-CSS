@@ -296,6 +296,10 @@ resize:none;
 
 ## 计数器
 
+- `content`	使用 ::before 和 ::after 伪元素来插入自动生成的内容
+`counter-increment`	递增一个或多个值
+`counter-reset`	创建或重置一个或多个计数器
+
 ```css
 div.counting_01{
 	counter-reset: section;
@@ -307,3 +311,283 @@ div.counting_01 p.content::before {
 }
 ```
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200513162630779.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0MTk5Njc0,size_16,color_FFFFFF,t_70)
+
+- 嵌套计数器
+
+```css
+div.counting2{
+	counter-reset: section;
+}
+
+div.counting2 p.title{
+	counter-reset: subsection;
+	color: #ffaecf;
+}
+
+div.counting2 p.title::before{
+	counter-increment: section;
+	content: "Section " counter(section)". ";
+}
+
+div.counting2 p::before{
+	counter-increment: subsection;
+	content: counter(section)"." counter(subsection)" ";
+	color: #ffaecf;
+}
+```
+
+```css
+<div class="counting2">
+		<p class="title">202005</p>
+		<p>撒野</p>
+		<p>TOP</p>
+		<p>Rooftop</p>
+		
+		<p class="title">202004</p>
+		<p>無限大</p>
+		<p>SUMMER!</p>
+		<p>BOKE</p>
+		
+		<p class="title">202003</p>
+		<p>追</p>
+		<p>心似烟火</p>
+	</div>
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200514084157514.png)
+
+- 列表使用计数器
+
+```css
+div.counting3 ol{
+	counter-reset: section;
+	list-style-type: none;
+}
+
+div.counting3 li::before{
+	counter-increment: section;
+	content: counters(section,".")" ";
+	color: #ff4f81;
+}
+```
+
+```css
+<ol>
+			<li>佐々木琲世</li>
+			<li>佐々木琲世
+				<ol>
+					<li>佐々木琲世</li>
+					<li>佐々木琲世</li>
+					<li>佐々木琲世
+						<ol>
+							<li>佐々木琲世</li>
+							<li>佐々木琲世</li>
+						</ol>
+					</li>
+				</ol>
+			</li>
+			<li>佐々木琲世</li>
+		</ol>
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200514085303468.png)
+
+##  布局
+- 头部
+
+```css
+/*头部样式*/
+.header{
+	background-color: #EDECEC;
+	padding: 20px;
+	text-align: center;
+}
+```
+
+```css
+	<div class="header">
+		<p style="color: pink;font-size: 36px;">班德尔城</p>
+	</div>
+```
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200514162335140.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0MTk5Njc0,size_16,color_FFFFFF,t_70)
+
+- 导航栏
+
+```css
+/*导航条*/
+.topnav{
+	overflow:hidden;
+	background-color: #ffaecf;
+}
+
+/*导航链接*/
+.topnav a{
+	padding: 14px 16px;
+	text-align: center;
+	color: white;
+	text-decoration: none;
+	float: left;
+	display: block;
+/*	向左浮动、块状显示*/
+}
+
+/*链接修改颜色*/
+.topnav a:hover{
+	background-color: white;
+	color: #ff4f81;
+}
+```
+
+```css
+	<div class="topnav">
+		<a href="#">漫画</a>
+		<a href="#">动画</a>
+		<a href="#">小说</a>
+		<a href="#" style="float: right">时间线</a>
+	</div>
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200514162510817.png)
+
+- 分栏
+- 三列
+
+```css
+/*创建三个相等的列*/
+.column{
+	float: left;
+	width: 33.3%;
+}
+```
+
+```css
+/*创建三个不相等的列*/
+.column{
+	float: left;
+	padding: 10px;
+}
+*/
+
+/*左右两侧宽度*/
+/*
+.column.side{
+	width: 25%;
+}
+*/
+
+/*中间区域宽度*/
+/*
+.column.middle{
+	width: 50%;
+}
+```
+	
+
+```css
+<div class="row">
+		<div class="column side">
+		<div class="column middle">
+		<div class="column side">
+		......
+```
+
+
+- 两列+卡片化
+
+```css
+/*创建两列*/
+/*left column*/
+.leftcolumn{
+	float: left;
+	width: 75%;
+}
+
+/*右侧栏*/
+.rightcolumn{
+	float: left;
+	width: 25%;
+	background-color: #f1f1f1;
+	padding-left: 20px;
+}
+
+/*图像部分*/
+.BLEACH_img1{
+	background-color: #ffffff;
+	width: 100%;
+	padding: 20px;
+	align-content: center;
+}
+
+/*文章卡片效果*/
+.card{
+	background-color: white;
+	padding: 20px;
+	margin-top: 20px;
+}
+
+/*列后清除浮动*/
+.row:after{
+	content: "";
+	display: table;
+	clear: both;
+}
+```
+
+
+```css
+<div class="row">
+		<div class="leftcolumn">
+			<div class="card">
+		<div class="rightcolumn">
+			 <div class="card">
+......
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200514163350946.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0MTk5Njc0,size_16,color_FFFFFF,t_70)
+
+- 响应式布局
+
+```css
+/*响应式布局* - 小于800px时改为上下布局*/
+@media screen and (max-width:800px){
+	.column .leftcolumn .rightcolumn{
+		width: 100%;
+		padding: 0;
+	}
+}
+
+/*响应式布局 - 屏幕尺寸小于400px时，导航等布局改为上下布局 */
+@media screen and (max-width:400px){
+	.topnav a{
+		float: none;
+		width: 100%;
+	}
+}
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020051416372216.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0MTk5Njc0,size_16,color_FFFFFF,t_70)
+
+- 底部样式
+
+```css
+/*底部样式*/
+.footer{
+	background-color: #F1EFEF;
+	padding: 10px;
+	text-align: center;
+	color: #ff4f81;
+}
+```
+
+```css
+	<div class="footer">
+		<p>THE DEATH AND THE STRAWBERRY.</p>
+	</div>
+```
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200514163916517.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0MTk5Njc0,size_16,color_FFFFFF,t_70)
+### 出现的问题
+- 图片没能适应div块
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200514164018947.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0MTk5Njc0,size_16,color_FFFFFF,t_70)
+
+
